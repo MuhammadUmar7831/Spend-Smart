@@ -1,6 +1,12 @@
+"use client"
+import { Button } from '@/components/ui/button';
+import { useUser } from '@clerk/nextjs';
+import Link from 'next/link'
 import React from 'react'
 
 export default function Hero() {
+    const { isSignedIn } = useUser();
+
     return (
         <section>
             <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
@@ -18,15 +24,20 @@ export default function Hero() {
                     </p>
 
                     <div className="mt-8 flex flex-wrap justify-center gap-4">
-                        <a
-                            className="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
-                            href="#"
-                        >
-                            Get Started
-                        </a>
+                        {isSignedIn ?
+                            <Link
+                                className="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-blue-500 focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
+                                href={"/dashboard"}>
+                                Dashboard
+                            </Link> : <Link
+                                className="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-blue-500 focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
+                                href="/sign-in"
+                            >
+                                Get Started
+                            </Link>}
 
                         <a
-                            className="block w-full rounded border border-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
+                            className="block w-full rounded border border-blue-600 px-12 py-3 text-sm font-medium text-blue-500 hover:text-white hover:bg-blue-600 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
                             href="#"
                         >
                             Learn More
